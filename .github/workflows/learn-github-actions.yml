@@ -24,7 +24,7 @@ jobs:
           git config --local user.email "rprakashs@ph.iitr.ac.in"
           git add ./file.js
           git commit -m "Add file.js"
-      - name: Push changes
+      - name: Push changes           # push the file
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
