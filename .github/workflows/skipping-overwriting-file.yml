@@ -1,0 +1,38 @@
+name: skipping overwriting file
+run-name: ${{ github.actor }} is skipping overwriting file
+on: [push]
+
+jobs:
+  
+  check-bats-version:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./ramji29/git_try
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+      
+      - name: Overwrite file
+        if: ${{ github.ref == 'ref/heads/main' }}
+        uses: DamianReeves/write-file-action@master
+        with:
+          path: ./file.js
+          contents: |
+            overwritten!
+          write-mode: overwrite
+      - name: Commit files to git
+        if: ${{ github.ref == 'ref/heads/main' }}
+        run: |
+          git config --local user.name "ramji29"
+          git config --local user.email "rprakashs@ph.iitr.ac.in"
+          git add ./file.js
+          git commit -m "Add file.js"
+      - name: Push changes           # push the file
+        if: ${{ github.ref == 'ref/heads/main' }}
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force: true
+        
