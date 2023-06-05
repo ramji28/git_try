@@ -60,7 +60,7 @@ jobs:
 
     steps:
       - name: append file
-        if: FILE_CHANGE="Yes"
+        
         uses: DamianReeves/write-file-action@master
         with:
           path: ./cmfgen.json
