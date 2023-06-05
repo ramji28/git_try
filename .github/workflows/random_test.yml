@@ -50,12 +50,12 @@ jobs:
             echo "There are no chnages in the files!"
           else
             echo "::set-output name=condition::true"
-            #FILE_CHANGE="Yes"
+            FILE_CHANGE="Yes"
           fi
 
   file_update:
     needs: build
-    if: ${{ needs.build.outputs.condition == 'true' }}
+    if: ${{ needs.build.FILE_CHANGE == 'Yes' }}
     runs-on: ubuntu-latest
 
     steps:
