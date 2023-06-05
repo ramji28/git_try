@@ -18,4 +18,15 @@ jobs:
           contents: |
             Hello World!
           write-mode: append
+      - name: Commit files to git
+        run: |
+          git config --local user.name "ramji29"
+          git config --local user.email "rprakashs@ph.iitr.ac.in"
+          git add ./file.js
+          git commit -m "Add file.js"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force: true
         
