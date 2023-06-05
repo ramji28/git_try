@@ -48,6 +48,7 @@ jobs:
 
           if [ "$JSON_HASH" = "$DOWNLOAD_HASH" ]; then
             echo "There are no chnages in the files!"
+            FILE_CHANGE="Yes"
           else
             echo "::set-output name=condition::true"
             FILE_CHANGE="Yes"
