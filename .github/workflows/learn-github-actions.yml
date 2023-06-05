@@ -18,5 +18,4 @@ jobs:
           contents: |
             Hello World!
           write-mode: append
-      - run: npm install -g bats
-      - run: bats -v
+        
