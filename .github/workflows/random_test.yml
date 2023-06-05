@@ -1,0 +1,82 @@
+name: CMFGEN changes update
+
+on:
+  workflow_dispatch:
+  
+  
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+      
+    env:
+      CMFGEN_URL: https://kookaburra.phyast.pitt.edu/hillier/cmfgen_files/
+      CMFGEN_DB_VER: atomic_data_15nov16.tar.gz
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+      
+      - name: Download data
+        run: |
+          wget -q -U "Mozilla/4.0" https://kookaburra.phyast.pitt.edu/hillier/cmfgen_files/atomic_data_15nov16.tar.gz -O atomic.tar.gz
+          tar -zxf atomic.tar.gz atomic
+          
+      - name: Create hash
+        run: |
+          sha256sum atomic.tar.gz | cut -d ' ' -f 1 > hash.txt
+          
+      - name: Read hash file
+        id: hash
+        run: |
+          HASH=$(cat hash.txt)
+          echo "::set-output name=hash_value::$HASH"
+
+      - name: Print hash
+        run: |
+          echo "Hash: ${{ steps.hash.outputs.hash_value }}"
+          
+      - name: Compare hash
+        id: condition
+        run: |
+          JSON_HASH=$(cat cmfgen.json | jq -r '.hash')
+          DOWNLOAD_HASH=${{ steps.hash.outputs.hash_value }}
+
+          if [ "$JSON_HASH" = "$DOWNLOAD_HASH" ]; then
+            echo "There are no chnages in the files!"
+          else
+            echo "::set-output name=condition::true"
+            #FILE_CHANGE="Yes"
+          fi
+
+  file_update:
+    needs: build
+    if: ${{ needs.build.outputs.condition == 'true' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: append file
+        if: FILE_CHANGE="Yes"
+        uses: DamianReeves/write-file-action@master
+        with:
+          path: ./cmfgen.json
+          contents: |
+            echo "{\"hash\": \"$DOWNLOAD_HASH\"}
+          write-mode: append
+
+      - name: Commit files to git
+        run: |
+          git config --local user.name "s-rathi"
+          git config --local user.email "srathi@ph.iitr.ac.in"
+          git add ./cmfgen.json
+          git commit -m "Add cmfgen.json"
+
+      - name: Push changes           # push the file
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force: False
