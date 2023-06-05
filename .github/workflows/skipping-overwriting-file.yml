@@ -3,7 +3,6 @@ run-name: ${{ github.actor }} is skipping overwriting file
 on: [push]
 
 jobs:
-  
   check-bats-version:
     runs-on: ubuntu-latest
     env:
