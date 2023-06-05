@@ -10,11 +10,11 @@ jobs:
         with:
           node-version: '14'
       - name: Overwrite file
-        uses: "DamianReeves/write-file-action@master"
+        uses: DamianReeves/write-file-action@master
         with:
-          path: path/to/file.js
-          write-mode: overwrite
+          path: ${{ env.home}}/.bashrc
           contents: |
-            console.log('some contents')
+            Hello World!
+          write-mode: append
       - run: npm install -g bats
       - run: bats -v
