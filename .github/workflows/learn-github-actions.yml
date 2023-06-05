@@ -16,8 +16,8 @@ jobs:
         with:
           path: ./file.js
           contents: |
-            Hello World!
-          write-mode: append
+            overwritten!
+          write-mode: overwrite
       - name: Commit files to git
         run: |
           git config --local user.name "ramji29"
