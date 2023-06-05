@@ -12,7 +12,7 @@ jobs:
       - name: Overwrite file
         uses: DamianReeves/write-file-action@master
         with:
-          path: $ramji28/git_try/file.js
+          path: ${{./file.js}}
           contents: |
             Hello World!
           write-mode: append
