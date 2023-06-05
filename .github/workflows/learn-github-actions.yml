@@ -1,7 +1,9 @@
 name: learn-github-actions
 run-name: ${{ github.actor }} is learning GitHub Actions
 on: [push]
+
 jobs:
+  if: ${{ github.event.head_commit.message == 'update' }}
   check-bats-version:
     runs-on: ubuntu-latest
     env:
@@ -11,6 +13,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '14'
+      
       - name: Overwrite file
         uses: DamianReeves/write-file-action@master
         with:
