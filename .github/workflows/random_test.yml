@@ -56,7 +56,7 @@ jobs:
 
   file_update:
     needs: build
-    if: ${{ needs.build.FILE_CHANGE == 'Yes' }}
+  #  if: ${{ needs.build.FILE_CHANGE == 'Yes' }}
     runs-on: ubuntu-latest
 
     steps:
