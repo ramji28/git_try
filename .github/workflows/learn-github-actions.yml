@@ -9,5 +9,12 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '14'
+      - name: Overwrite file
+        uses: "DamianReeves/write-file-action@master"
+        with:
+          path: path/to/file.js
+          write-mode: overwrite
+          contents: |
+            console.log('some contents')
       - run: npm install -g bats
       - run: bats -v
