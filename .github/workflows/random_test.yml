@@ -40,13 +40,13 @@ jobs:
 
       - name: Print hash
         run: |
-          echo "Hash: ${{ steps.hash.outputs.hash_value }}"
+          echo "Hash: ${{ steps.hash.outputs.hash_output }}"
           
       - name: Compare hash
         id: condition
         run: |
           JSON_HASH=$(cat cmfgen.json | jq -r '.hash')
-          DOWNLOAD_HASH=${{ steps.hash.outputs.hash_value }}
+          DOWNLOAD_HASH=${{ steps.hash.outputs.hash_output }}
 
           if [ "$JSON_HASH" = "$DOWNLOAD_HASH" ]; then
             echo "There are no changes in the files!"
