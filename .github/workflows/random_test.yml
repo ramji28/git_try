@@ -40,7 +40,7 @@ jobs:
 
       - name: Print hash
         run: |
-          echo "Hash: ${{ steps.outputs.hash_output }}"
+          echo "Hash: ${{ steps.hash.outputs.hash_output }}"
           
       - name: Compare hash
         id: condition
