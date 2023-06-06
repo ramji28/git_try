@@ -70,7 +70,7 @@ jobs:
 
       - name: Append new hash to cmfgen.json
         run: |
-          DOWNLOAD_HASH=${{ needs.build.steps.outputs.hash_value }}
+          DOWNLOAD_HASH=${{ needs.build.steps.hash.outputs.hash_value }}
           echo "{\"hash\": \"${{ needs.build.steps.hash.outputs.hash_value }}\"}" >> cmfgen.json
 
 
