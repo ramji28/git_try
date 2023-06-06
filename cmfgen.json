@@ -1,3 +1,4 @@
 { 
   "hash": "asdasd" 
 }
+echo "{\"hash\": \"$DOWNLOAD_HASH\"}
