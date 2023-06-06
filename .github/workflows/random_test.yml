@@ -12,7 +12,7 @@ jobs:
     env:
       CMFGEN_URL: https://kookaburra.phyast.pitt.edu/hillier/cmfgen_files/
       CMFGEN_DB_VER: atomic_data_15nov16.tar.gz
-      working-directory: ./s-rathi/Atomic-database
+      #working-directory: ./s-rathi/Atomic-database
 
     steps:
       - name: Checkout repository
