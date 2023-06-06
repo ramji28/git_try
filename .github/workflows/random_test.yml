@@ -36,11 +36,11 @@ jobs:
         id: hash
         run: |
           HASH=$(cat hash.txt)
-          echo "hash_value=$HASH" >> $GITHUB_ENV
+          echo "hash_value=$HASH" >> "$GITHUB_OUTPUT"
 
       - name: Print hash
         run: |
-          echo "Hash: ${{ steps.hash.outputs.hash_output }}"
+          echo "Hash: ${{ steps.outputs.hash_output }}"
           
       - name: Compare hash
         id: condition
