@@ -47,6 +47,7 @@ jobs:
         id: condition
         run: |
           JSON_HASH=$(cat cmfgen.json | jq -r '.hash')
+          echo "$JSON_HASH"
           DOWNLOAD_HASH=${{ steps.hash.outputs.hash_value }}
 
           if [ $JSON_HASH="$DOWNLOAD_HASH" ]; then
