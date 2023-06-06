@@ -53,7 +53,7 @@ jobs:
             echo "There are no changes in the files!"
           else
             FILE_CHANGE="Yes"
-            echo "change=$FILE_CHANGE" >> "$GITHUB_OUTPUT
+            echo "change=$FILE_CHANGE" >> "$GITHUB_OUTPUT"
           fi
 
   file_update:
