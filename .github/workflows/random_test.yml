@@ -50,7 +50,7 @@ jobs:
           echo $JSON_HASH
           DOWNLOAD_HASH=${{ steps.hash.outputs.hash_value }}
 
-          if [ $JSON_HASH="$DOWNLOAD_HASH" ]; then
+          if [[ "$JSON_HASH" == "$DOWNLOAD_HASH" ]]; then
             echo "There are no changes in the files!"
           else
             FILE_CHANGE="Yes"
