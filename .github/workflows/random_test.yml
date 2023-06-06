@@ -15,6 +15,7 @@ jobs:
       #working-directory: ./s-rathi/Atomic-database
     outputs:
       hash_output: ${{ steps.hash.outputs.hash_value }}
+      change_output: ${{ steps.condition.outputs.change }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -48,16 +49,16 @@ jobs:
           JSON_HASH=$(cat cmfgen.json | jq -r '.hash')
           DOWNLOAD_HASH=${{ steps.hash.outputs.hash_output }}
 
-          if [ "$JSON_HASH" = "$DOWNLOAD_HASH" ]; then
+          if [ "$JSON_HASH" == "$DOWNLOAD_HASH" ]; then
             echo "There are no changes in the files!"
           else
-            echo "::set-output name=condition::true"
-            #FILE_CHANGE="Yes"
+            FILE_CHANGE="Yes"
+            echo "change=$FILE_CHANGE" >> "$GITHUB_OUTPUT
           fi
 
   file_update:
     needs: build
-    #if: ${{ needs.build.outputs.condition == 'true' }}
+    if: ${{ needs.build.outputs.change_output == 'Yes' }}
     runs-on: ubuntu-latest
 
     steps:
