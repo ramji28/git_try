@@ -49,7 +49,7 @@ jobs:
           JSON_HASH=$(cat cmfgen.json | jq -r '.hash')
           DOWNLOAD_HASH=${{ steps.hash.outputs.hash_value }}
 
-          if:  "$JSON_HASH"!="$DOWNLOAD_HASH" ;
+          if: {{"$JSON_HASH"!="$DOWNLOAD_HASH"}} 
           echo "There are changes in the files!"
           FILE_CHANGE="Yes"
           echo "change=$FILE_CHANGE" >> "$GITHUB_OUTPUT"
