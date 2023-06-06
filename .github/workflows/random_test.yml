@@ -24,19 +24,19 @@ jobs:
         with:
           node-version: '14'
       
-      - name: Download data
-        run: |
-          wget -q -U "Mozilla/4.0" https://kookaburra.phyast.pitt.edu/hillier/cmfgen_files/atomic_data_15nov16.tar.gz -O atomic.tar.gz
-          tar -zxf atomic.tar.gz atomic
+      # - name: Download data
+      #   run: |
+      #     wget -q -U "Mozilla/4.0" https://kookaburra.phyast.pitt.edu/hillier/cmfgen_files/atomic_data_15nov16.tar.gz -O atomic.tar.gz
+      #     tar -zxf atomic.tar.gz atomic
           
-      - name: Create hash
-        run: |
-          sha256sum atomic.tar.gz | cut -d ' ' -f 1 > hash.txt
+      # - name: Create hash
+      #   run: |
+      #     sha256sum atomic.tar.gz | cut -d ' ' -f 1 > hash.txt
           
       - name: Read hash file
         id: hash
         run: |
-          HASH=$(cat hash.txt)                  
+          HASH=$(cat hash.json | jq -r '.hash')   #$(cat hash.txt)                  
           echo "hash_value=$HASH" >> "$GITHUB_OUTPUT"
 
       - name: Print hash
