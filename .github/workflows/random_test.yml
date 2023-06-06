@@ -12,7 +12,7 @@ jobs:
     env:
       CMFGEN_URL: https://kookaburra.phyast.pitt.edu/hillier/cmfgen_files/
       CMFGEN_DB_VER: atomic_data_15nov16.tar.gz
-      working-directory: ./ramji29/git_try
+      working-directory: ./s-rathi/Atomic-database
 
     steps:
       - name: Checkout repository
@@ -48,16 +48,15 @@ jobs:
           DOWNLOAD_HASH=${{ steps.hash.outputs.hash_value }}
 
           if [ "$JSON_HASH" = "$DOWNLOAD_HASH" ]; then
-            echo "There are no chnages in the files!"
-            FILE_CHANGE="Yes"
+            echo "There are no changes in the files!"
           else
             echo "::set-output name=condition::true"
-            FILE_CHANGE="Yes"
+            #FILE_CHANGE="Yes"
           fi
 
   file_update:
     needs: build
-  #  if: ${{ needs.build.FILE_CHANGE == 'Yes' }}
+    #if: ${{ needs.build.outputs.condition == 'true' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -66,14 +65,14 @@ jobs:
         with:
           node-version: '14'
 
-      - name: append file
-        
-        uses: DamianReeves/write-file-action@master
-        with:
-          path: ./cmfgen.json
-          contents: |
-            echo "{\"hash\": \"$DOWNLOAD_HASH\"}
-          write-mode: append
+     # - name: append file
+      #  uses: DamianReeves/write-file-action@master
+
+      - name: Append new hash to cmfgen.json
+        run: |
+          DOWNLOAD_HASH=${{ needs.build.steps.outputs.hash_value }}
+          echo "{\"hash\": \"${{ needs.build.steps.hash.outputs.hash_value }}\"}" >> cmfgen.json
+
 
       - name: Commit files to git
         run: |
@@ -86,4 +85,6 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          force: False
+          force: false
+
+      
