@@ -1,4 +1,4 @@
-name: CMFGEN changes update
+name: CMFGEN cache
 
 on:
   workflow_dispatch:
