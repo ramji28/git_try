@@ -32,18 +32,20 @@ jobs:
             key: ${{ env.CMFGEN_DB_VER }}
 
         id: cache-atomic-db
+        
+      - name: Save file
+        id: cache-file-save
+        uses: actions/cache/save@v3
+        with:
+          path: ${{ env.atomic_db}}
+          key: ${{ steps.cache-atomic-db.outputs.cache-primary-key }}
 
       - name: Check if cache is hit for cmfgen data
         run: | 
             echo "Cache hit: ${{ steps.cache-atomic-db.outputs.cache-hit }}"
             if [[ "${{ steps.cache-atomic-db.outputs.cache-hit }}" == "true" ]]; then
                 echo "Cache hit, skip downloading"
-                - name: Save file
-                  id: cache-file-save
-                  uses: actions/cache/save@v3
-                  with:
-                    path: ${{ env.atomic_db}}
-                    key: ${{ steps.cache-atomic-db.outputs.cache-primary-key }}
+
                 ls ${{ env.atomic_db}} #/${{env.CMFGEN_DB_VER}}  /tmp/atomic.tar.gz
                 
             else
