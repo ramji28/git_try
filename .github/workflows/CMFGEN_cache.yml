@@ -37,8 +37,8 @@ jobs:
             echo "Cache hit: ${{ steps.cache-atomic-db.outputs.cache-hit }}"
             if [[ "${{ steps.cache-atomic-db.outputs.cache-hit }}" == "true" ]]; then
                 echo "Cache hit, skip downloading"
-                touch ${{ env.atomic_db }}
-                tar -zxf ${{ env.atomic_db }}/${{ env.CMFGEN_DB_VER }} -C /tmp/atomic.tar.gz
+                mv ${{ env.atomic_db}}/${{env.CMFGEN_DB_VER}}  /tmp/atomic.tar.gz
+                
             else
                 echo "Cache not hit, downloading"
                 wget -q -U "Mozilla/4.0" https://kookaburra.phyast.pitt.edu/hillier/cmfgen_files/atomic_data_15nov16.tar.gz -O /tmp/atomic.tar.gz
