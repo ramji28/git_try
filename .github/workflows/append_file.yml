@@ -1,6 +1,22 @@
-uses: DamianReeves/write-file-action@master
-with:
-  path: ${{ env.home}}/.bashrc
-  contents: |
-    Hello World!
-  write-mode: append
+name: something
+
+on:
+  workflow_dispatch:
+  
+  
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+      
+    env:
+      CMFGEN_URL: https://kookaburra.phyast.pitt.edu/hillier/cmfgen_files/
+      CMFGEN_DB_VER: atomic_data_15nov16.tar.gz
+      atomic_db: /tmp/atomic
+      #working-directory: ./s-rathi/Atomic-database
+      uses: DamianReeves/write-file-action@master
+      with:
+        path: ${{ env.home}}/.bashrc
+        contents: |
+          Hello World!
+        write-mode: append
