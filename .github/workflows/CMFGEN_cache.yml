@@ -54,7 +54,7 @@ jobs:
           
       - name: Create hash
         run: |
-          sha256sum atomic.tar.gz | cut -d ' ' -f 1 > hash.txt
+          sha256sum /tmp/atomic.tar.gz | cut -d ' ' -f 1 > hash.txt
           
       - name: Read hash file
         id: hash
