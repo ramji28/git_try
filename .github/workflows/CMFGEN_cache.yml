@@ -30,6 +30,8 @@ jobs:
         with:
             path: ${{ env.atomic_db }}
             key: ${{ env.CMFGEN_DB_VER }}
+            restore-keys: |
+                    ${{ runner.os }}-dependencies-
         id: cache-atomic-db
 
       - name: Check if cache is hit for cmfgen data
