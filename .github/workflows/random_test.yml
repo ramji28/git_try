@@ -26,7 +26,8 @@ jobs:
       
       - name: Download data
         run: |
-          wget -q -U "Mozilla/4.0" https://kookaburra.phyast.pitt.edu/hillier/cmfgen_files/atomic_data_15nov16.tar.gz -O atomic.tar.gz
+          #wget -q -U "Mozilla/4.0" https://kookaburra.phyast.pitt.edu/hillier/cmfgen_files/atomic_data_15nov16.tar.gz -O atomic.tar.gz
+          wget -qr -U "Mozilla/4.0" ${{ env.CMFGEN_URL }} -P 
           tar -zxf atomic.tar.gz atomic
           
       - name: Create hash
