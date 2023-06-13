@@ -28,6 +28,8 @@ jobs:
       - name: checkout from another branch
         run: |
           git switch new_features
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
           git restore --source origin/master -- hash.json
           git add .
           git commit -m "readng from another dir.js"
