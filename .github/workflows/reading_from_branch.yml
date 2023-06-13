@@ -10,14 +10,16 @@ jobs:
       working-directory: ./ramji29/git_try
     steps:
 
-      - name : checkout from new_feature
+      - name : checkout from all branches
         uses: actions/checkout@v3
         with:
-          ref: new_features
-      - name : checkout from master
-        uses: actions/checkout@v3
-        with:
-            ref: master
+          fetch-depth: 0
+      - name: List all the remote branches
+        run: git branch -r
+      # - name : checkout from master
+      #   uses: actions/checkout@v3
+      #   with:
+      #       ref: master
       - uses: actions/setup-node@v3
         with:
           node-version: '14'
