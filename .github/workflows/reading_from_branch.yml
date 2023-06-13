@@ -17,7 +17,7 @@ jobs:
      
       - name: checkout from another branch
         run: |
-          git switch new_feaure
+          git switch new_features
           git restore --source master -- hash.json
           git add ./file.js
           git commit -m "Add file.js"
