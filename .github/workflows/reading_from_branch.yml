@@ -1,0 +1,28 @@
+name: reading from another branch
+run-name: ${{ github.actor }} is reading from another branch
+on: [push]
+
+jobs:
+  
+  check-bats-version:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./ramji29/git_try
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+      
+     
+      - name: checkout from another branch
+        run: |
+          git switch new_feaure
+          git restore --source master -- hash.json
+          git add ./file.js
+          git commit -m "Add file.js"
+          git push origin new_feature
+
+      
+      
+        
