@@ -33,7 +33,7 @@ jobs:
           git restore --source origin/master -- hash.json
           git add .
           git commit -m "readng from another dir.js"
-          git push origin new_feature
+          git push origin new_features
 
       
       
