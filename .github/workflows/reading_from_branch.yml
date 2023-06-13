@@ -17,10 +17,10 @@ jobs:
      
       - name: checkout from another branch
         run: |
-          git switch new_features
+          
           git restore --source master -- hash.json
-          git add ./file.js
-          git commit -m "Add file.js"
+          git add .
+          git commit -m "readng from another dir.js"
           git push origin new_feature
 
       
