@@ -9,9 +9,14 @@ jobs:
     env:
       working-directory: ./ramji29/git_try
     steps:
-      - uses: actions/checkout@v3
+      - name : checkout from master
+        uses: actions/checkout@v3
         with:
           ref: master
+      - name : checkout from new_feature
+        uses: actions/checkout@v3
+        with:
+          ref: new_features
       - uses: actions/setup-node@v3
         with:
           node-version: '14'
