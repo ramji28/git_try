@@ -13,7 +13,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '14'
-      
+      - name: this does nothing
+        if: ${{ github.ref == 'ref/heads/main' }}
+        run: |
+          echo "this does nothing"
+  
       - name: Overwrite file
         if: ${{ github.ref == 'ref/heads/main' }}
         uses: DamianReeves/write-file-action@master
@@ -34,5 +38,4 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          force: true
-        
+          force: false

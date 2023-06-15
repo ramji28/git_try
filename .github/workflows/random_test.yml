@@ -1,4 +1,4 @@
-name: CMFGEN changes update
+name: CMFGEN changes update from test
 
 on:
   workflow_dispatch:
